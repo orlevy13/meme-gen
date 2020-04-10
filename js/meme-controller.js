@@ -1,0 +1,179 @@
+'use strict';
+
+var gCanvas;
+var gCtx;
+var gImgAspectRatio;
+
+// Sets size of canvas and basic variables
+function onInit() {
+    renderImgs();
+    gCanvas = document.querySelector('#my-canvas');
+    if (window.innerWidth > 500) gCanvas.width = 500;
+    else gCanvas.width = 250;
+    gCtx = gCanvas.getContext('2d');
+};
+
+// This line only exists so that the resizing of the canvas will happen if screen is resized,
+// The size will also automatically adjust according to the screen size
+window.addEventListener('resize', setCanvasSize)
+
+// Sets the canvas size in accordance to screen size
+function setCanvasSize() {
+    if (window.innerWidth < 500 && gCanvas.width === 500) {
+        gCanvas.width = 250;
+    } else if (window.innerWidth > 500 && gCanvas.width === 250) {
+        gCanvas.width = 500;
+    }
+    drawLinesTxt();
+}
+
+// Draws the image of the gMeme, calcs the image aspect ratio
+function drawImg() {
+    let img = new Image();
+    const meme = getMeme();
+    img.src = getImgSrc(meme.selectedImgId);
+    img.onload = () => {
+        gImgAspectRatio = img.height / img.width;
+        gCanvas.height = gCanvas.width * gImgAspectRatio;
+        setCanvasSize();
+        onSetSecondLineY();//This is here because until this moment I can't position the 
+        // second line since the height of the canvas is unknown(line should be at the bottom)
+        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height); //img,x,y,width,height
+    };
+};
+
+// Sets the second line Y axis
+function onSetSecondLineY() {
+    setSecondLineY();
+}
+
+// Draws text by the paramaters passed
+function drawText(text, x, y, align, size, font, fill, stroke) {
+    gCtx.strokeStyle = stroke;
+    gCtx.lineWidth = 2;
+    gCtx.fillStyle = fill;
+    gCtx.font = `${size}px ${font}`;
+    gCtx.textAlign = align;
+    gCtx.fillText(text, x, y);
+    gCtx.strokeText(text, x, y);
+};
+
+// Getting text input, updates model, displaying it on canvas
+function onUserType(val) {
+    setLineTxt(val);
+    drawLinesTxt();
+};
+
+// Sets a new meme with the image and displays editor
+function onImageClicked(id) {
+    setCurrMeme(id);
+    drawImg();
+    showEditor();
+}
+
+// Revealing the editor and hiding the main page
+function showEditor() {
+    const elEditor = document.querySelector('.meme-editor');
+    elEditor.style = ('display: flex;');
+    const elMainPage = document.querySelector('.main-page');
+    elMainPage.style = ('display:none;');
+}
+
+// The opposite of this showEditor()
+function hideEditor() {
+    const elEditor = document.querySelector('.meme-editor');
+    elEditor.style = ('display: none;');
+    const elMainPage = document.querySelector('.main-page');
+    elMainPage.style = ('display: block;')
+}
+
+// Draws all lines on the canvas
+function drawLinesTxt() {
+    let img = new Image();
+    const meme = getMeme();
+    if (!meme) return;
+    const lines = meme.lines;
+    img.src = getImgSrc(meme.selectedImgId);
+    img.onload = () => {
+        gImgAspectRatio = img.height / img.width;
+        gCanvas.height = gCanvas.width * gImgAspectRatio;
+        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+        lines.forEach(line => {
+            drawText(line.txt, line.x, line.y, line.align, line.size, line.font, line.fillColor, line.strokeColor);
+        });
+    };
+}
+
+// Updates new font size in the model, Draws with new size
+function onChangeFontSize(val) {
+    changeFontSize(val);
+    drawLinesTxt();
+}
+
+// Updates y coordinate in the model, Draws at new location
+function onMoveLine(val) {
+    moveLine(val);
+    drawLinesTxt()
+}
+
+// Upadtes selectedLineIdx,renders input field to match line text
+function onChangeLine() { //TODO: Remove this when lines are draggable
+    changeLine();
+    drawLinesTxt();//TODO: is this needed?
+    renderInputField();
+}
+
+// Sets the new fill color, redraws everything
+function onChangeFillColor(color) {
+    changeFillColor(color);
+    drawLinesTxt();
+}
+
+// Deletes selected line, redraws everything
+function onDeleteLine() {
+    deleteLine();
+    drawLinesTxt();
+    renderInputField();
+}
+
+// Adds new line
+function onAddLine() {
+    addLine();
+    drawLinesTxt();
+    renderInputField();
+}
+
+// Changes font, redraws everything
+function onChangeFont(font) {
+    changeFont(font);
+    drawLinesTxt();
+}
+
+// Changes stroke color, redraws everything
+function onChangeStrokeColor(color) {
+    changeStrokeColor(color);
+    drawLinesTxt();
+}
+
+// Renders input field with the current line text
+function renderInputField() {
+    const elInput = document.querySelector('input[name="lineText"]');
+    const meme = getMeme();
+    const currLine = meme.lines[meme.selectedLineIdx];
+    if (!currLine) return;
+    elInput.value = currLine.txt;
+    elInput.focus();
+}
+
+// Translates menu, toggles screen 'hidden' att
+function toggleMenu() {
+    document.querySelector('.main-nav').classList.toggle('display-menu');
+    document.querySelector('.screen').toggleAttribute('hidden');
+}
+
+// Sets the line to line clicked, renders input field to match the line txt
+function onCanvasClicked(ev) {
+    selectLine(ev.offsetX, ev.offsetY);
+    drawLinesTxt(); //TODO: is this needed?
+    renderInputField();
+}

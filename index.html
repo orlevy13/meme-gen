@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Generator</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body onload="onInit()">
+    <div onclick="toggleMenu()" hidden class="screen"></div>
+    <header class="flex space-between align-center">
+        <div class="logo logo-header">MemeGen</div>
+        <button onclick="toggleMenu()" class="toggle-menu">☰</button>
+        <ul class="main-nav flex">
+            <li onclick="hideEditor()" class="flex align-center justify-center">Gallery</li>
+            <li class="flex align-center justify-center">Memes</li>
+            <li class="flex align-center justify-center">About</li>
+        </ul>
+    </header>
+
+    <main class="flex wrap">
+        <div class="meme-editor align-center">
+            <div class="canvas-container">
+                <canvas onclick="onCanvasClicked(event)" id="my-canvas"></canvas>
+            </div>
+            <div class="gui-container flex column align-center justify-center">
+                <input class="line-txt" oninput="onUserType(this.value)" placeholder="Text goes here" type="text"
+                    name="lineText">
+                <div class="line-controls">
+                    <button title="Change line" class="change-line btn-background" onclick="onChangeLine()"></button>
+                    <button title="Move line up" class="move-up btn-background" onclick="onMoveLine(-10)"></button>
+                    <button title="Move line down" class="move-down btn-background" onclick="onMoveLine(10)"></button>
+                    <button title="Remove line" class="delete-line btn-background" onclick="onDeleteLine()"></button>
+                    <button title="Remove line" class="add-line btn-background" onclick="onAddLine()"></button>
+                </div>
+                <div class="font-controls flex align-center">
+                    <select class="font-select" onchange="onChangeFont(this.value)" name="fontFamily">
+                        <option value="Impact">Impact</option>
+                        <option value="Arial">Arial</option>
+                        <option value="comicSans">Comic sans</option>
+                    </select>
+                    <button title="Increase font size" class="increase-font btn-background"
+                        onclick="onChangeFontSize(5)"></button>
+                    <button title="Decrease font size" class="decrease-font btn-background"
+                        onclick="onChangeFontSize(-5)"></button>
+                    <div title="Change font color" class="fill-color-input">
+                        <input value="#ffffff" oninput="onChangeFillColor(this.value)" class="fill-color"
+                            name="fillColor" type="color">
+                    </div>
+                    <div title="Change stroke color" class="stroke-color-input">
+                        <input oninput="onChangeStrokeColor(this.value)" class="stroke-color" type="color"
+                            class="stroke-color" name="strokeColor">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-page">
+            <section class="search-bar flex space-between">
+                <input class="search-input" type="text" placeholder="funny, sad">
+                <ul class="search-terms">
+                    <li>funny</li>
+                    <li>cute</li>
+                    <li>sad</li>
+                </ul>
+            </section>
+            <div class="gallery-container flex wrap justify-center">
+            </div>
+            <section class="me flex align-center">
+                <div class="profile-img">
+                    <img src="images/me.jpg">
+                </div>
+                <div class="me-content">
+                    <h2>Or Levy</h2>
+                    <p></p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="main-footer flex column justify-center align-center">
+        <div class="footer-logo logo">MemeGen</div>
+        <p class="footer-rights"> &copy; Cofferights 2020</p>
+    </footer>
+
+    <script src="js/utils.js"></script>
+    <script src="js/meme-service.js"></script>
+    <script src="js/meme-controller.js"></script>
+</body>
+
+</html>

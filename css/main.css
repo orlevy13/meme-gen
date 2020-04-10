@@ -1,0 +1,388 @@
+/* FONTS */
+
+@font-face {
+    font-family: pangolin;
+    src: url(../fonts/pangolin-regular.ttf);
+}
+
+@font-face {
+    font-family: comicSans;
+    src: url(../fonts/comic-sans.ttf);
+}
+
+/* BASICS */
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #66fcf1;
+}
+
+img {
+    height: 30vh;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    display: inline-block;
+}
+
+button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+}
+
+select {
+    cursor: pointer;
+    outline: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+input:focus {
+    outline: none;
+}
+
+/* LAYOUT */
+
+header {
+    background-color: #0b0c10;
+}
+
+/* For the hamburger */
+
+.screen {
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000094;
+}
+
+/* COMPONENTS */
+
+/* meme editor */
+
+.meme-editor {
+    display: none;
+    height: 80vh;
+    width: 100%;
+    background-color: #202833;
+    transition: opacity 0.3s;
+}
+
+.canvas-container {
+    margin: 20px 40px 20px 20px;
+}
+
+/* meme editor gui */
+
+.gui-container {
+    border: 1px solid black;
+    width: 100%;
+}
+
+.gui-container * {
+    margin: 10px;
+}
+
+.gui-container button {
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: 8px solid #ffffff;
+    padding: 15px 15px;
+}
+
+.gui-container .line-txt {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.fill-color-input {
+    background-image: url(../images/icons/color-pallete.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    font-size: 41px;
+}
+
+.fill-color {
+    opacity: 0;
+    margin: 0;
+    padding: 13px 0;
+}
+
+.font-select {
+    border: 8px solid #0b0c10;
+    border-radius: 5px;
+    color: #66fcf1;
+    background-color: #0b0c10;
+}
+
+.stroke-color-input {
+    background-color: #fff;
+    border-radius: 5px;
+    background-image: url(../images/icons/stroke.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.stroke-color {
+    opacity: 0;
+    padding: 10px 1px;
+    margin: 0;
+}
+
+.add-line {
+    background-image: url(../images/icons/add.png);
+}
+
+.delete-line {
+    background-image: url(../images/icons/trash.png);
+}
+
+.change-line {
+    background-image: url(../images/icons/up-and-down-opposite-double-arrows-side-by-side.png);
+}
+
+.increase-font {
+    background-image: url(../images/icons/increase-font-icon.png);
+}
+
+.decrease-font {
+    background-image: url(../images/icons/decrease-font-icon.png);
+}
+
+.move-up {
+    background-image: url(../images/icons/up-arrow.png);
+}
+
+.move-down {
+    background-image: url(../images/icons/down-arrow.png);
+}
+
+/* header */
+
+.logo.logo-header {
+    display: inline-block;
+    position: relative;
+    margin-left: 50px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-menu {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    right: 30px;
+    font-size: 2rem;
+    background-color: #202833;
+    color: #66fcf1;
+    border-radius: 5px;
+    padding-bottom: 5px;
+    transition: opacity 0.2s;
+}
+
+.main-nav {
+    margin-right: 30px;
+    color: #66fcf1;
+}
+
+.main-nav li {
+    text-align: center;
+    cursor: pointer;
+    height: 70px;
+    width: 100px;
+    box-shadow: inset 0px -1px 3px 0px #c5c6c8;
+}
+
+.main-nav li:hover {
+    box-shadow: inset 0px -1px 8px 0px #c5c6c8;
+}
+
+/*  MAIN PAGE */
+
+.main-page {
+    width: 100%;
+    background: linear-gradient(90deg, rgba(11, 12, 16, 0.863) 0%, rgba(43, 44, 50, 1) 40%, rgba(32, 40, 51, 1) 100%);
+}
+
+/* search bar */
+
+.search-bar {
+    padding-top: 40px;
+    margin-bottom: 40px;
+}
+
+.search-input {
+    margin: 0 50px;
+}
+
+.search-terms {
+    display: inline-block;
+    margin: 0 30px;
+}
+
+/* main content */
+
+main {
+    position: relative;
+}
+
+.gallery-container {
+    background-color: #c5c6c8;
+    width: 100%;
+}
+
+.gallery-container img {
+    margin: 20px;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.6);
+    transition: all 0.1s;
+}
+
+.gallery-container img:hover {
+    transform: scale(1.1);
+}
+
+/* me section */
+
+.profile-img {
+    display: inline;
+}
+
+.me-content {
+    display: inline;
+}
+
+.me-content>* {
+    display: inline;
+}
+
+/* footer */
+
+.main-footer {
+    background-color: #0b0c10;
+}
+
+.footer-logo {
+    margin: 50px 0 30px 0;
+}
+
+.footer-rights {
+    margin-bottom: 50px;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width:1024px) {
+    /* meme editor */
+    .meme-editor {
+        flex-flow: column;
+    }
+    .canvas-container {
+        margin: 20px 20px 20px 20px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    header {
+        position: fixed;
+        z-index: 3;
+        width: 100%;
+    }
+    /*hamburger */
+    .toggle-menu {
+        visibility: visible;
+        opacity: 1;
+    }
+    .main-nav.display-menu {
+        transform: translate(0);
+    }
+    .main-nav {
+        flex-flow: column;
+        position: fixed;
+        z-index: 3;
+        top: 70px;
+        right: 0;
+        background-color: #13181e;
+        padding: 0;
+        margin: 0;
+        height: 100vh;
+        transition: all 0.2s;
+        transform: translate(100%);
+    }
+    .main-nav li {
+        width: 130px;
+    }
+    /* layout fixes */
+    .main-page {
+        margin-top: 70px;
+    }
+    .meme-editor {
+        margin-top: 70px;
+    }
+    .canvas-container {
+        margin: 20px 0;
+    }
+}
+
+/* HELPERS */
+
+.flex {
+    display: flex;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.column {
+    flex-flow: column;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.space-around {
+    justify-content: space-around;
+}
+
+.btn-background {
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.logo {
+    font-family: pangolin;
+    font-size: 3rem;
+    cursor: default;
+}
