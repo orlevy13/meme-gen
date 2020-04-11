@@ -152,7 +152,7 @@ function getLineIdx(x, y) {
 
 // Sets line pos to mouse pos
 function dragLine(ev, lineIdx) {
-    if (!gIsMouseDown) return;
+    // if (!gIsMouseDown) return; TODO: is this needed?
     if (ev.offsetX < 2 || ev.offsetX > gCanvas.width - 2 ||
         ev.offsetY < 2 || ev.offsetY > gCanvas.height - 2) return onDragEnd();
 

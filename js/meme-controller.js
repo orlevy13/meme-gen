@@ -6,6 +6,7 @@ var gImgAspectRatio;
 var gIsMouseDown = false;
 var gCurrLineDrag;
 
+
 // Sets size of canvas and basic variables
 function onInit() {
     renderImgs();
@@ -13,7 +14,24 @@ function onInit() {
     if (window.innerWidth > 500) gCanvas.width = 500;
     else gCanvas.width = 250;
     gCtx = gCanvas.getContext('2d');
+    // Line below prevents scrolling on canvas
+    gCanvas.addEventListener("touchmove", function (event) { event.preventDefault() });
+    var canvasHammer = new Hammer(gCanvas);
+    canvasHammer.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+    canvasHammer.on('panstart', function () { selectLine(event.offsetX, event.offsetY) });
+    canvasHammer.on('pan', function () { handleTouch(event) });
 };
+
+// Handles touch events
+function handleTouch(ev) {
+    if (ev.type === 'pointermove') {
+        if (gCurrLineDrag === -1) return;
+        dragLine(ev, gCurrLineDrag);
+        drawLinesTxt();
+    }
+    // Equivalent of mouseup
+    if (ev.type === 'pointerup') return onDragEnd();
+}
 
 // This line only exists so that the resizing of the canvas will happen if screen is resized,
 // The size will also automatically adjust according to the screen size
