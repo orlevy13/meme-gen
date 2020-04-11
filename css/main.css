@@ -32,10 +32,11 @@ li {
     display: inline-block;
 }
 
-button {
+button, a {
     cursor: pointer;
     outline: none;
     border: none;
+    text-decoration: none;
 }
 
 select {
@@ -147,6 +148,15 @@ header {
     opacity: 0;
     padding: 10px 1px;
     margin: 0;
+}
+
+.download-button.btn-background {
+    background-image: url(../images/icons/download.png);
+    background-color: #fff;
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+    background-size: 90%;
 }
 
 .add-line {

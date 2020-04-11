@@ -153,6 +153,9 @@ function getLineIdx(x, y) {
 // Sets line pos to mouse pos
 function dragLine(ev, lineIdx) {
     if (!gIsMouseDown) return;
+    if (ev.offsetX < 2 || ev.offsetX > gCanvas.width - 2 ||
+        ev.offsetY < 2 || ev.offsetY > gCanvas.height - 2) return onDragEnd();
+
     gMeme.lines[lineIdx].x = ev.offsetX;
     gMeme.lines[lineIdx].y = ev.offsetY;
 }

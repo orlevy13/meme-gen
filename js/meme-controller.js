@@ -187,6 +187,7 @@ function onStartDrag(ev) {
 // Sets the line coordinates same as mouse coordinates
 function onDrag(ev) {
     if (!gIsMouseDown || gCurrLineDrag === -1) return;
+    gCanvas.style = ('cursor: move;')
     dragLine(ev, gCurrLineDrag);
     drawLinesTxt();
 }
@@ -197,4 +198,11 @@ function onDragEnd() {
     gIsMouseDown = false;
     if (!getMeme()) return;
     renderInputField();
+    gCanvas.style = ('cursor: default;')
+}
+
+// Downloads the image
+function onDownload(elLink) {
+    const imgContent = gCanvas.toDataURL('image/jpeg');
+    elLink.href = imgContent;
 }

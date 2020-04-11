@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 
-<body onload="onInit()" onmouseup="onDragEnd()">
+<body onload="onInit()">
     <div onclick="toggleMenu()" hidden class="screen"></div>
     <header class="flex space-between align-center">
         <div class="logo logo-header">MemeGen</div>
@@ -23,7 +23,8 @@
     <main class="flex wrap">
         <div class="meme-editor align-center">
             <div class="canvas-container">
-                <canvas onmousedown="onStartDrag(event)" onmousemove="onDrag(event)" id="my-canvas"></canvas>
+                <canvas onmousedown="onStartDrag(event)" onmousemove="onDrag(event)" onmouseup="onDragEnd()"
+                    id="my-canvas"></canvas>
             </div>
             <div class="gui-container flex column align-center justify-center">
                 <input class="line-txt" oninput="onUserType(this.value)" placeholder="Text goes here" type="text"
@@ -54,6 +55,8 @@
                             class="stroke-color" name="strokeColor">
                     </div>
                 </div>
+                <a title="Download as jpg" href="" download="my-meme.jpg" onclick="onDownload(this)"
+                    class="download-button btn-background"></a>
             </div>
         </div>
         <div class="main-page">
