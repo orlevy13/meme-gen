@@ -349,6 +349,16 @@ main {
     }
     .meme-editor {
         margin-top: 70px;
+        height: 100vh;
+    }
+    .gui-container * {
+        margin: 5px;
+    }
+    .fill-color {
+        padding: 7px 0px;
+    }
+    .stroke-color {
+        padding: 8px 0px;
     }
     .canvas-container {
         margin: 20px 0;
