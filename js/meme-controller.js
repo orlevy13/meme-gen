@@ -3,6 +3,8 @@
 var gCanvas;
 var gCtx;
 var gImgAspectRatio;
+var gIsMouseDown = false;
+var gCurrLineDrag;
 
 // Sets size of canvas and basic variables
 function onInit() {
@@ -98,10 +100,16 @@ function drawLinesTxt() {
         gImgAspectRatio = img.height / img.width;
         gCanvas.height = gCanvas.width * gImgAspectRatio;
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-        lines.forEach(line => {
+        lines.forEach((line, idx) => {
+            onSetLineWidth(idx);
             drawText(line.txt, line.x, line.y, line.align, line.size, line.font, line.fillColor, line.strokeColor);
         });
     };
+}
+
+// This sets the gMeme.lines.lineWidth, to keep track of the line size
+function onSetLineWidth(lineIdx) {
+    setLineWidth(lineIdx);
 }
 
 // Updates new font size in the model, Draws with new size
@@ -117,9 +125,8 @@ function onMoveLine(val) {
 }
 
 // Upadtes selectedLineIdx,renders input field to match line text
-function onChangeLine() { //TODO: Remove this when lines are draggable
+function onChangeLine() {
     changeLine();
-    drawLinesTxt();//TODO: is this needed?
     renderInputField();
 }
 
@@ -171,9 +178,23 @@ function toggleMenu() {
     document.querySelector('.screen').toggleAttribute('hidden');
 }
 
-// Sets the line to line clicked, renders input field to match the line txt
-function onCanvasClicked(ev) {
+// Sets selectedLine = gCurrLineDrag, Sets gIsMouseDown to true
+function onStartDrag(ev) {
     selectLine(ev.offsetX, ev.offsetY);
-    drawLinesTxt(); //TODO: is this needed?
+    gIsMouseDown = true;
+}
+
+// Sets the line coordinates same as mouse coordinates
+function onDrag(ev) {
+    if (!gIsMouseDown || gCurrLineDrag === -1) return;
+    dragLine(ev, gCurrLineDrag);
+    drawLinesTxt();
+}
+
+//Trigger-body.onmouseup, Sets the currLineDrag to -1 and gIsMouseDown false,renders input field
+function onDragEnd() {
+    gCurrLineDrag = -1;
+    gIsMouseDown = false;
+    if (!getMeme()) return;
     renderInputField();
 }

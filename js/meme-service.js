@@ -4,7 +4,7 @@ var gKeywords = { 'happy': 12, 'funny puk': 1 };
 var gMeme;
 
 
-// For the controller
+// Returns gMeme
 function getMeme() {
     return gMeme;
 }
@@ -29,25 +29,35 @@ function setCurrMeme(id) {
                 txt: 'Text here',
                 size: 40,
                 font: 'Impact',
-                align: 'left',
+                align: 'center',
                 fillColor: 'white',
                 strokeColor: 'black',
-                x: gCanvas.width / 2 - 80,
-                y: 50
+                x: gCanvas.width / 2,
+                y: 50,
+                lineWidth: 149.9609375
             },
             {
-                txt: 'Another text',
+                txt: 'Another Text',
                 size: 40,
                 font: 'Impact',
-                align: 'left',
+                align: 'center',
                 fillColor: 'white',
                 strokeColor: 'black',
-                x: gCanvas.width / 2 - 80,
-                y: null
+                x: gCanvas.width / 2,
+                y: null,
+                lineWidth: null
             }
         ],
-        lineCount: 2 // TODO: Increment this with each line added
+        lineCount: 2
     };
+}
+
+// Sets the lines width
+function setLineWidth(lineIdx) {
+    const txt = gMeme.lines[lineIdx].txt;
+    let width = gCtx.measureText(txt).width;
+    //For some unknown reason, in the first iteration it measures wrong(about a third of what it should)
+    gMeme.lines[lineIdx].lineWidth = (lineIdx === 0) ? width * 3.6 : width;
 }
 
 // Sets the Y of the second line
@@ -105,11 +115,12 @@ function addLine() {
             txt: 'Text',
             size: 40,
             font: 'Impact',
-            align: 'left',
+            align: 'center',
             fillColor: 'white',
             strokeColor: 'black',
-            x: 250,
-            y: 150
+            x: gCanvas.width / 2,
+            y: gCanvas.height / 2,
+            lineWidth: null
         }
     )
     gMeme.lineCount++;
@@ -123,10 +134,25 @@ function changeFont(font) {
 
 // Sets the selected line to the line clicked
 function selectLine(offsetX, offsetY) {
-    const idx = gMeme.lines.findIndex(line => {
-        return offsetX > line.x
-            && offsetY < line.y + line.size
-    });
+    const idx = getLineIdx(offsetX, offsetY);
+    gCurrLineDrag = idx;
     if (idx === -1) return;
     gMeme.selectedLineIdx = idx;
+}
+
+// Returns the idx of line, if not found returns -1
+function getLineIdx(x, y) {
+    return gMeme.lines.findIndex(line => {
+        return x > line.x - line.lineWidth / 2 &&
+            x < line.x + line.lineWidth / 2 &&
+            y < line.y &&
+            y > line.y - line.size
+    });
+}
+
+// Sets line pos to mouse pos
+function dragLine(ev, lineIdx) {
+    if (!gIsMouseDown) return;
+    gMeme.lines[lineIdx].x = ev.offsetX;
+    gMeme.lines[lineIdx].y = ev.offsetY;
 }
