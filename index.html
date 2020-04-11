@@ -55,8 +55,16 @@
                             class="stroke-color" name="strokeColor">
                     </div>
                 </div>
-                <a title="Download as jpg" href="" download="my-meme.jpg" onclick="onDownload(this)"
-                    class="download-button btn-background"></a>
+                <div class="share-controls flex align-center">
+                    <a title="Download as jpg" href="" download="my-meme.jpg" onclick="onDownload(this)"
+                        class="download-button btn-background"></a>
+                    <form action="" class="flex align-center" method="POST" enctype="multipart/form-data"
+                        onsubmit="uploadImg(this, event)">
+                        <input name="img" id="imgData" type="hidden" />
+                        <button title="Publish" class="publish-btn btn-background" type="submit"></button>
+                        <div class="share-container"></div>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="main-page">
@@ -88,6 +96,7 @@
     </footer>
 
     <script src="js/libs/hammer.js"></script>
+    <script src="js/upload-service.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/meme-service.js"></script>
     <script src="js/meme-controller.js"></script>

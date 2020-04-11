@@ -11,8 +11,8 @@ var gCurrLineDrag;
 function onInit() {
     renderImgs();
     gCanvas = document.querySelector('#my-canvas');
-    if (window.innerWidth > 500) gCanvas.width = 500;
-    else gCanvas.width = 250;
+    if (window.innerWidth > 600) gCanvas.width = 600;
+    else gCanvas.width = 300;
     gCtx = gCanvas.getContext('2d');
     // Line below prevents scrolling on canvas
     gCanvas.addEventListener("touchmove", function (event) { event.preventDefault() });
@@ -39,10 +39,10 @@ window.addEventListener('resize', setCanvasSize)
 
 // Sets the canvas size in accordance to screen size
 function setCanvasSize() {
-    if (window.innerWidth < 500 && gCanvas.width === 500) {
-        gCanvas.width = 250;
-    } else if (window.innerWidth > 500 && gCanvas.width === 250) {
-        gCanvas.width = 500;
+    if (window.innerWidth < 600 && gCanvas.width === 600) {
+        gCanvas.width = 300;
+    } else if (window.innerWidth > 600 && gCanvas.width === 300) {
+        gCanvas.width = 600;
     }
     drawLinesTxt();
 }

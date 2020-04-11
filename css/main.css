@@ -159,6 +159,26 @@ header {
     background-size: 90%;
 }
 
+.publish-btn.btn-background {
+    padding: 17px;
+    background-image: url(../images/icons/publish.png);
+}
+
+.share-facebook {
+    padding: 18px 25px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    background-size: 95%;
+}
+
+.share-facebook.btn-background {
+    background-image: url(../images/icons/facebook.png);
+    padding: 18px 25px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    background-size: 95%;
+}
+
 .add-line {
     background-image: url(../images/icons/add.png);
 }
@@ -307,6 +327,7 @@ main {
     /* meme editor */
     .meme-editor {
         flex-flow: column;
+        height: 100vh;
     }
     .canvas-container {
         margin: 20px 20px 20px 20px;
@@ -349,7 +370,6 @@ main {
     }
     .meme-editor {
         margin-top: 70px;
-        height: 100vh;
     }
     .gui-container * {
         margin: 5px;
