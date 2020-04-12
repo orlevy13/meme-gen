@@ -16,7 +16,9 @@
         <ul class="main-nav flex">
             <li onclick="hideEditor()" class="flex align-center justify-center">Gallery</li>
             <li class="flex align-center justify-center">Memes</li>
-            <li class="flex align-center justify-center">About</li>
+            <li class="flex align-center justify-center"><a class="about-link flex align-center justify-center"
+                    href="#about">About</a>
+            </li>
         </ul>
     </header>
 
@@ -69,7 +71,10 @@
         </div>
         <div class="main-page">
             <section class="search-bar flex space-between">
-                <input oninput="onSearch(this.value)" class="search-input" type="text" placeholder="funny, sad">
+                <input list="keywords" oninput="onSearch(this.value)" class="search-input" type="text"
+                    placeholder="Search for a keyword">
+                <datalist id="keywords">
+                </datalist>
                 <ul class="search-terms">
                     <li>funny</li>
                     <li>cute</li>
@@ -78,7 +83,7 @@
             </section>
             <div class="gallery-container flex wrap justify-center">
             </div>
-            <section class="me flex align-center">
+            <section id="about" class="me flex align-center">
                 <img class="profile-img" src="images/me.jpg">
                 <div class="me-content">
                     <h2>Or Levy</h2>

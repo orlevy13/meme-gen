@@ -10,6 +10,7 @@ var gCurrLineDrag;
 // Sets size of canvas and basic variables
 function onInit() {
     renderImgs();
+    renderOptions();
     gCanvas = document.querySelector('#my-canvas');
     if (window.innerWidth > 600) gCanvas.width = 600;
     else gCanvas.width = 300;

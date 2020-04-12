@@ -248,6 +248,12 @@ header {
     box-shadow: inset 0px -1px 8px 0px #c5c6c8;
 }
 
+.about-link {
+    flex-basis: 100%;
+    align-self: stretch;
+    color: #66fcf1;
+}
+
 /*  MAIN PAGE */
 
 .main-page {
@@ -264,6 +270,9 @@ header {
 
 .search-input {
     margin: 0 50px;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .search-terms {
