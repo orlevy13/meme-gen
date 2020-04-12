@@ -225,3 +225,13 @@ function onDownload(elLink) {
     const imgContent = gCanvas.toDataURL('image/jpeg');
     elLink.href = imgContent;
 }
+
+// Search for keyword match,display matching images, if nothing found, display all
+function onSearch(keyword) {
+    keyword = keyword.toLowerCase().trim();
+    setImgsForDisplay(keyword);
+    const images = getImages();
+    const isNothingFound = images.every(img => img.isHidden);
+    if (isNothingFound) setAllImgsForDisplay();
+    renderImgs();
+}

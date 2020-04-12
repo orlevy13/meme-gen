@@ -1,6 +1,6 @@
 'use strict';
 
-var gKeywords = { 'happy': 12, 'funny puk': 1 };
+var gKeywords = { 'happy': 12, 'funny': 1 };
 var gMeme;
 
 
@@ -54,10 +54,9 @@ function setCurrMeme(id) {
 
 // Sets the lines width
 function setLineWidth(lineIdx) {
-    const txt = gMeme.lines[lineIdx].txt;
-    let width = gCtx.measureText(txt).width;
-    //For some unknown reason, in the first iteration it measures wrong(about a third of what it should)
-    gMeme.lines[lineIdx].lineWidth = (lineIdx === 0) ? width * 3.6 : width;
+    const txtChars = gMeme.lines[lineIdx].txt.split('');
+    const width = txtChars.length * gMeme.lines[lineIdx].size / 2.2;
+    gMeme.lines[lineIdx].lineWidth = width;
 }
 
 // Sets the Y of the second line
@@ -67,6 +66,7 @@ function setSecondLineY() {
 
 // Updates the font size for the selected line
 function changeFontSize(val) {
+    if (gMeme.lines[gMeme.selectedLineIdx].size <= 5 && val < 0) return;
     gMeme.lines[gMeme.selectedLineIdx].size += val;
 }
 
@@ -135,8 +135,6 @@ function changeFont(font) {
 // Sets the selected line to the line clicked
 function selectLine(offsetX, offsetY) {
     const idx = getLineIdx(offsetX, offsetY);
-    console.log('line idx', idx);
-
     gCurrLineDrag = idx;
     if (idx === -1) return;
     gMeme.selectedLineIdx = idx;

@@ -69,7 +69,7 @@
         </div>
         <div class="main-page">
             <section class="search-bar flex space-between">
-                <input class="search-input" type="text" placeholder="funny, sad">
+                <input oninput="onSearch(this.value)" class="search-input" type="text" placeholder="funny, sad">
                 <ul class="search-terms">
                     <li>funny</li>
                     <li>cute</li>
@@ -79,12 +79,10 @@
             <div class="gallery-container flex wrap justify-center">
             </div>
             <section class="me flex align-center">
-                <div class="profile-img">
-                    <img src="images/me.jpg">
-                </div>
+                <img class="profile-img" src="images/me.jpg">
                 <div class="me-content">
                     <h2>Or Levy</h2>
-                    <p></p>
+                    <p>Full stack developer</p>
                 </div>
             </section>
         </div>
@@ -97,7 +95,7 @@
 
     <script src="js/libs/hammer.js"></script>
     <script src="js/upload-service.js"></script>
-    <script src="js/utils.js"></script>
+    <script src="js/image-service.js"></script>
     <script src="js/meme-service.js"></script>
     <script src="js/meme-controller.js"></script>
 </body>
