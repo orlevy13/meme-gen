@@ -1,10 +1,8 @@
 'use strict';
 
-var gKeywords = { 'happy': 12, 'funny': 1 };
 var gMeme;
 
 
-// Returns gMeme
 function getMeme() {
     return gMeme;
 }

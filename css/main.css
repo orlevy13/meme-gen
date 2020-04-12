@@ -276,8 +276,36 @@ header {
 }
 
 .search-terms {
-    display: inline-block;
     margin: 0 30px;
+    width: 100%;
+}
+
+.search-terms li {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.hidden-search-terms {
+    margin: 0 30px;
+}
+
+.hidden-search-terms li {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.show-more {
+    border-radius: 5px;
+    margin-right: 20px;
+    padding: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: #0b0c10;
+    color: #66fcf1;
+}
+
+.hide {
+    display: none;
 }
 
 /* main content */
@@ -337,6 +365,15 @@ main {
     }
     .canvas-container {
         margin: 20px 20px 20px 20px;
+    }
+    .search-terms-container {
+        flex-flow: column;
+    }
+    .search-terms-container * {
+        margin-bottom: 10px;
+    }
+    .search-terms {
+        max-width: 90vw;
     }
 }
 

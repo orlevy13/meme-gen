@@ -11,6 +11,7 @@ var gCurrLineDrag;
 function onInit() {
     renderImgs();
     renderOptions();
+    renderSearchKeywords();
     gCanvas = document.querySelector('#my-canvas');
     if (window.innerWidth > 600) gCanvas.width = 600;
     else gCanvas.width = 300;
@@ -230,9 +231,43 @@ function onDownload(elLink) {
 // Search for keyword match,display matching images, if nothing found, display all
 function onSearch(keyword) {
     keyword = keyword.toLowerCase().trim();
+    countKeywordRepeat(keyword);
     setImgsForDisplay(keyword);
     const images = getImages();
     const isNothingFound = images.every(img => img.isHidden);
     if (isNothingFound) setAllImgsForDisplay();
     renderImgs();
+}
+
+// Renders search terms randomly
+function renderSearchKeywords() {
+    const elList = document.querySelector('.search-terms');
+    const elHiddenList = document.querySelector('.hidden-search-terms')
+    var availabeKeywords = getAvailableKeywords();
+    var fontSize;
+    var strHTML = '';
+    var strHTMLhidden = '';
+    if (isObjectEmpty(keywords)) {
+        for (let i = 0; i < 20; i++) {
+            fontSize = getRandomInt(12, 60);
+            var idx = getRandomInt(0, availabeKeywords.length - 1)
+            if (i >= 5) {
+                // Only 5 words shown at all times
+                strHTMLhidden += `<li onclick="onSearch('${availabeKeywords[idx]}')"
+                style="font-size: ${fontSize}px">${availabeKeywords[idx]}</li>`;
+                // to avoid repetition
+                availabeKeywords.splice(idx, 1)
+            } else strHTML += `<li onclick="onSearch('${availabeKeywords[idx]}')"
+              style="font-size: ${fontSize}px">${availabeKeywords[idx]}</li>`;
+        } elList.innerHTML = strHTML;
+        elHiddenList.innerHTML = strHTMLhidden;
+        return;
+    }
+}
+
+// Toggles the expanded search terms display
+function toggleKeywords(elBtn) {
+    var elHiddenList = document.querySelector('.hidden-search-terms');
+    elHiddenList.classList.toggle('hide');
+    elBtn.innerText = (elBtn.innerText === 'Show more') ? 'Show less' : 'Show more';
 }

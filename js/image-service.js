@@ -1,5 +1,18 @@
 'use strict';
 
+var gKeywordsAvailable = [];
+
+function getAvailableKeywords() {
+    return gKeywordsAvailable;
+}
+
+// Creates an array with all available keywords
+function setAvailableKeywords() {
+    gImgs.forEach(img => {
+        gKeywordsAvailable.push(...img.keywords)
+    })
+}
+
 // Renders the imgs to the gallery instead of typing :)
 function renderImgs() {
     var strHTML = gImgs.map(img => {
@@ -73,3 +86,4 @@ var gImgs = [
     { isHidden: false, id: 24, url: 'images/meme-imgs/24.jpg', keywords: ['dog', 'stretch'] },
     { isHidden: false, id: 25, url: 'images/meme-imgs/25.jpg', keywords: ['oprah', 'happy', 'win', 'smile', 'women'] }
 ];
+setAvailableKeywords();
