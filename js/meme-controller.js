@@ -18,7 +18,8 @@ function onInit() {
     gCanvas.addEventListener("touchmove", function (event) { event.preventDefault() });
     var canvasHammer = new Hammer(gCanvas);
     canvasHammer.get('pan').set({ direction: Hammer.DIRECTION_ALL });
-    canvasHammer.on('panstart', function () { selectLine(event.offsetX, event.offsetY) });
+    // The 'if' is here to check if 'panstart' actually detected a mouseclick
+    canvasHammer.on('panstart', function () { if (!gIsMouseDown) selectLine(event.offsetX, event.offsetY) });
     canvasHammer.on('pan', function () { handleTouch(event) });
 };
 

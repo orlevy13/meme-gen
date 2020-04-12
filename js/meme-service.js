@@ -34,7 +34,7 @@ function setCurrMeme(id) {
                 strokeColor: 'black',
                 x: gCanvas.width / 2,
                 y: 50,
-                lineWidth: 149.9609375
+                lineWidth: null
             },
             {
                 txt: 'Another Text',
@@ -135,6 +135,8 @@ function changeFont(font) {
 // Sets the selected line to the line clicked
 function selectLine(offsetX, offsetY) {
     const idx = getLineIdx(offsetX, offsetY);
+    console.log('line idx', idx);
+
     gCurrLineDrag = idx;
     if (idx === -1) return;
     gMeme.selectedLineIdx = idx;
