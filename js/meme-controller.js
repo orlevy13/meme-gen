@@ -231,7 +231,6 @@ function onDownload(elLink) {
 // Search for keyword match,display matching images, if nothing found, display all
 function onSearch(keyword) {
     keyword = keyword.toLowerCase().trim();
-    countKeywordRepeat(keyword);
     setImgsForDisplay(keyword);
     const images = getImages();
     const isNothingFound = images.every(img => img.isHidden);
@@ -247,22 +246,19 @@ function renderSearchKeywords() {
     var fontSize;
     var strHTML = '';
     var strHTMLhidden = '';
-    if (isObjectEmpty(keywords)) {
-        for (let i = 0; i < 20; i++) {
-            fontSize = getRandomInt(12, 60);
-            var idx = getRandomInt(0, availabeKeywords.length - 1)
-            if (i >= 5) {
-                // Only 5 words shown at all times
-                strHTMLhidden += `<li onclick="onSearch('${availabeKeywords[idx]}')"
+    for (let i = 0; i < 20; i++) {
+        fontSize = getRandomInt(12, 60);
+        var idx = getRandomInt(0, availabeKeywords.length - 1)
+        if (i >= 5) {
+            // Only 5 words shown at all times
+            strHTMLhidden += `<li onclick="onSearch('${availabeKeywords[idx]}')"
                 style="font-size: ${fontSize}px">${availabeKeywords[idx]}</li>`;
-                // to avoid repetition
-                availabeKeywords.splice(idx, 1)
-            } else strHTML += `<li onclick="onSearch('${availabeKeywords[idx]}')"
+            // to avoid repetition
+            availabeKeywords.splice(idx, 1)
+        } else strHTML += `<li onclick="onSearch('${availabeKeywords[idx]}')"
               style="font-size: ${fontSize}px">${availabeKeywords[idx]}</li>`;
-        } elList.innerHTML = strHTML;
-        elHiddenList.innerHTML = strHTMLhidden;
-        return;
-    }
+    } elList.innerHTML = strHTML;
+    elHiddenList.innerHTML = strHTMLhidden;
 }
 
 // Toggles the expanded search terms display
