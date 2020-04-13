@@ -1,6 +1,11 @@
 /* FONTS */
 
 @font-face {
+    font-family: overpass;
+    src: url(../fonts/overpass-regular.ttf);
+}
+
+@font-face {
     font-family: pangolin;
     src: url(../fonts/pangolin-regular.ttf);
 }
@@ -14,7 +19,7 @@
 
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: overpass;
     color: #66fcf1;
 }
 
@@ -242,6 +247,7 @@ header {
     height: 70px;
     width: 100px;
     box-shadow: inset 0px -1px 3px 0px #c5c6c8;
+    transition: all 0.2s;
 }
 
 .main-nav li:hover {
@@ -269,10 +275,10 @@ header {
 }
 
 .search-input {
-    margin: 0 50px;
     border: none;
     padding: 10px;
     border-radius: 5px;
+    cursor: inherit;
 }
 
 .search-terms {
@@ -283,6 +289,11 @@ header {
 .search-terms li {
     margin-right: 20px;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.search-terms li:hover {
+    color: #4c72ff;
 }
 
 .hidden-search-terms {
@@ -292,9 +303,15 @@ header {
 .hidden-search-terms li {
     margin-right: 20px;
     cursor: pointer;
+    transition: all 0.2s;
+}
+
+.hidden-search-terms li:hover {
+    color: #4c72ff;
 }
 
 .show-more {
+    min-width: max-content;
     border-radius: 5px;
     margin-right: 20px;
     padding: 5px;
@@ -302,6 +319,11 @@ header {
     font-weight: 500;
     background-color: #0b0c10;
     color: #66fcf1;
+    transition: all 0.2s;
+}
+
+.show-more:hover {
+    transform: scale(1.2);
 }
 
 .hide {

@@ -38,10 +38,10 @@ function handleTouch(ev) {
 
 // This line only exists so that the resizing of the canvas will happen if screen is resized,
 // The size will also automatically adjust according to the screen size
-window.addEventListener('resize', setCanvasSize)
+window.addEventListener('resize', resizeCanvas)
 
 // Sets the canvas size in accordance to screen size
-function setCanvasSize() {
+function resizeCanvas() {
     if (window.innerWidth < 600 && gCanvas.width === 600) {
         gCanvas.width = 300;
     } else if (window.innerWidth > 600 && gCanvas.width === 300) {
@@ -58,7 +58,7 @@ function drawImg() {
     img.onload = () => {
         gImgAspectRatio = img.height / img.width;
         gCanvas.height = gCanvas.width * gImgAspectRatio;
-        setCanvasSize();
+        resizeCanvas();
         onSetSecondLineY();//This is here because until this moment I can't position the 
         // second line since the height of the canvas is unknown(line should be at the bottom)
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height); //img,x,y,width,height
@@ -102,12 +102,15 @@ function showEditor() {
     elMainPage.style = ('display:none;');
 }
 
-// The opposite of this showEditor()
+// The opposite of showEditor()
 function hideEditor() {
     const elEditor = document.querySelector('.meme-editor');
     elEditor.style = ('display: none;');
     const elMainPage = document.querySelector('.main-page');
     elMainPage.style = ('display: block;')
+    // closing the menu also
+    document.querySelector('.main-nav').classList.remove('display-menu');
+    document.querySelector('.screen').hidden = true;
 }
 
 // Draws all lines on the canvas
@@ -230,6 +233,7 @@ function onDownload(elLink) {
 
 // Search for keyword match,display matching images, if nothing found, display all
 function onSearch(keyword) {
+    renderSearchInput(keyword);//if user clicked and not typed
     keyword = keyword.toLowerCase().trim();
     setImgsForDisplay(keyword);
     const images = getImages();
@@ -266,4 +270,14 @@ function toggleKeywords(elBtn) {
     var elHiddenList = document.querySelector('.hidden-search-terms');
     elHiddenList.classList.toggle('hide');
     elBtn.innerText = (elBtn.innerText === 'Show more') ? 'Show less' : 'Show more';
+}
+
+// Renders input field to keyword searched
+function renderSearchInput(keyword) {
+    const elInput = document.querySelector('.search-input');
+    elInput.value = keyword;
+    document.body.style = ('cursor: wait;');
+    setTimeout(() => {
+        document.body.style = ('cursor: unset;');
+    }, 800);
 }
