@@ -36,7 +36,7 @@ function renderSearchInput(keyword) {
     document.querySelector('.search-input').value = keyword;
     document.body.style = ('cursor: wait;');
     setTimeout(() => {
-        document.body.style = ('cursor: unset;');
+        document.body.style = ('cursor:;');
     }, 800);
 }
 
@@ -93,4 +93,10 @@ function renderSearchOptions() {
     })
     const elDatalist = document.querySelector('#keywords');
     elDatalist.innerHTML = strHTML.join('');
+}
+
+function scrollToAbout() {
+    document.querySelector('.me').scrollIntoView({
+        behavior: 'smooth'
+    });
 }

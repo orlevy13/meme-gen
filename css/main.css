@@ -19,7 +19,7 @@
 
 body {
     margin: 0;
-    font-family: overpass;
+    font-family: overpass, Arial, Helvetica, sans-serif;
     color: #66fcf1;
 }
 
@@ -269,6 +269,11 @@ header {
 
 /* search bar */
 
+.welcome {
+    margin-bottom: 10px;
+    cursor: default;
+}
+
 .search-bar {
     padding-top: 40px;
     margin-bottom: 40px;
@@ -359,6 +364,19 @@ main {
     margin: 10px 25px;
 }
 
+.me p {
+    margin-bottom: 5px;
+}
+
+.git-link {
+    background-image: url(../images/icons/git.svg);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 12px;
+    fill: #66fcf1;
+}
+
 /* footer */
 
 .main-footer {
@@ -396,6 +414,10 @@ main {
     }
     .search-terms {
         max-width: 90vw;
+    }
+    /* loader */
+    .sk-circle {
+        right: 10px;
     }
 }
 

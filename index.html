@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1">
     <title>Meme Generator</title>
+    <link rel="stylesheet" href="css/loader.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
 
@@ -15,9 +16,8 @@
         <button onclick="toggleMenu()" class="toggle-menu">☰</button>
         <ul class="main-nav flex">
             <li onclick="hideEditor()" class="flex align-center justify-center">Gallery</li>
-            <li class="flex align-center justify-center">Memes</li>
-            <li class="flex align-center justify-center"><a class="about-link flex align-center justify-center"
-                    href="#about">About</a>
+            <li class="flex align-center justify-center"><a onclick="hideEditor(); scrollToAbout()"
+                    class="about-link flex align-center justify-center">About</a>
             </li>
         </ul>
     </header>
@@ -29,8 +29,8 @@
                     id="my-canvas"></canvas>
             </div>
             <div class="gui-container flex column align-center justify-center">
-                <input class="line-txt" oninput="onUserType(this.value)" placeholder="Text goes here" type="text"
-                    name="lineText">
+                <input spellcheck="false" class="line-txt" oninput="onUserType(this.value)" placeholder="Text goes here"
+                    type="text" name="lineText">
                 <div class="line-controls">
                     <button title="Change line" class="change-line btn-background" onclick="onChangeLine()"></button>
                     <button title="Move line up" class="move-up btn-background" onclick="onMoveLine(-10)"></button>
@@ -65,13 +65,29 @@
                         <div class="share-container"></div>
                     </form>
                 </div>
+                <!-- Loader -->
+                <div class="sk-circle hide">
+                    <div class="sk-circle1 sk-child"></div>
+                    <div class="sk-circle2 sk-child"></div>
+                    <div class="sk-circle3 sk-child"></div>
+                    <div class="sk-circle4 sk-child"></div>
+                    <div class="sk-circle5 sk-child"></div>
+                    <div class="sk-circle6 sk-child"></div>
+                    <div class="sk-circle7 sk-child"></div>
+                    <div class="sk-circle8 sk-child"></div>
+                    <div class="sk-circle9 sk-child"></div>
+                    <div class="sk-circle10 sk-child"></div>
+                    <div class="sk-circle11 sk-child"></div>
+                    <div class="sk-circle12 sk-child"></div>
+                </div>
             </div>
         </div>
         <div class="main-page">
             <section class="search-bar flex column space-between align-center">
+                <h2 class="welcome">Welcome to the meme generator, choose an image to start!</h2>
                 <div class="search-terms-container flex space-between align-center">
                     <input list="keywords" spellcheck="false" oninput="onSearch(this.value)" class="search-input"
-                        type="text" placeholder="Search for..">
+                        type="search" placeholder="Search for..">
                     <datalist id="keywords">
                     </datalist>
                     <ul class="search-terms">
@@ -85,11 +101,14 @@
             </section>
             <div class="gallery-container flex wrap justify-center">
             </div>
-            <section id="about" class="me flex align-center">
+            <section class="me flex align-center">
                 <img class="profile-img" src="images/me.jpg">
                 <div class="me-content">
                     <h2>Or Levy</h2>
                     <p>Full stack developer</p>
+                    <div class="social">
+                        <a title="Github" target="_blank" class="git-link" href="https://github.com/orlevy13"></a>
+                    </div>
                 </div>
             </section>
         </div>

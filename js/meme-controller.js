@@ -107,6 +107,7 @@ function onImageClicked(id) {
     setCurrMeme(id);
     drawImg();
     showEditor();
+    window.scroll(0, 0);
 }
 
 // Draws all lines on the canvas
@@ -218,10 +219,11 @@ function onDownload(elLink) {
 function onPublish(elForm, ev) {
     ev.preventDefault();
     drawLinesTxt(false);
-    document.body.style = ('cursor: wait;')
+    const elLoader = document.querySelector('.sk-circle');
+    elLoader.classList.toggle('hide');
     setTimeout(() => {
-        document.body.style = ('cursor: ;')
         uploadImg(elForm, ev);
+        elLoader.classList.toggle('hide');
     }, 2000);
 
     setTimeout(() => {
@@ -234,10 +236,14 @@ function onPublish(elForm, ev) {
 function renderInputField() {
     const elInput = document.querySelector('input[name="lineText"]');
     const meme = getMeme();
-    const currLine = meme.lines[meme.selectedLineIdx];
-    if (!currLine) return;
-    elInput.value = currLine.txt;
+    if (!meme.lineCount) {
+        elInput.value = '';
+        elInput.disabled = true;
+        elInput.style = ('background-color: #929292;')
+        return;
+    }
+    elInput.disabled = false;
+    elInput.style = ('background-color: #ffffff;');
+    elInput.value = meme.lines[meme.selectedLineIdx].txt;
     elInput.focus();
 }
-
-
