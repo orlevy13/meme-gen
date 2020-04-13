@@ -8,7 +8,8 @@ function uploadImg(elForm, ev) {
         document.querySelector('.share-container').innerHTML = `
         <a class="share-facebook btn-background" href="http://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}"
          title="Share on Facebook" target="_blank" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">  
-        </a>`
+        </a>
+        <a title="Download as jpg" href="${gCanvas.toDataURL("image/jpeg")}" download="my-meme.jpg" class="download-button btn-background"></a>`
     }
     doUploadImg(elForm, onSuccess);
 }

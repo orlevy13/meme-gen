@@ -50,6 +50,21 @@ function resizeCanvas() {
     drawLinesTxt();
 }
 
+// Highlights the current line
+function highlightLine() {
+    const meme = getMeme();
+    const line = meme.lines[meme.selectedLineIdx];
+    if (!line) return;
+    gCtx.beginPath()
+    gCtx.strokeStyle = '#000000';
+    gCtx.lineWidth = 1
+    gCtx.fillStyle = '#4c4c4c4a'
+    //lineWidth isn't accurate hence the weird math
+    gCtx.rect(line.x - line.lineWidth * 1.1 / 2 - 10, line.y - line.size, line.lineWidth * 1.1 + 20, line.size + 10);
+    gCtx.stroke();
+    gCtx.fill();
+}
+
 // Draws the image of the gMeme, calcs the image aspect ratio
 function drawImg() {
     let img = new Image();
@@ -94,10 +109,8 @@ function onImageClicked(id) {
     showEditor();
 }
 
-
-
 // Draws all lines on the canvas
-function drawLinesTxt() {
+function drawLinesTxt(isHighlighted = true) {
     let img = new Image();
     const meme = getMeme();
     if (!meme) return;
@@ -111,6 +124,7 @@ function drawLinesTxt() {
             onSetLineWidth(idx);
             drawText(line.txt, line.x, line.y, line.align, line.size, line.font, line.fillColor, line.strokeColor);
         });
+        if (isHighlighted) highlightLine();
     };
 }
 
@@ -134,6 +148,7 @@ function onMoveLine(val) {
 // Upadtes selectedLineIdx,renders input field to match line text
 function onChangeLine() {
     changeLine();
+    drawLinesTxt();
     renderInputField();
 }
 
@@ -173,6 +188,7 @@ function onChangeStrokeColor(color) {
 function onStartDrag(ev) {
     selectLine(ev.offsetX, ev.offsetY);
     gIsMouseDown = true;
+    drawLinesTxt();
 }
 
 // Sets the line coordinates same as mouse coordinates
@@ -196,6 +212,22 @@ function onDragEnd() {
 function onDownload(elLink) {
     const imgContent = gCanvas.toDataURL('image/jpeg');
     elLink.href = imgContent;
+}
+
+//Prepares image for upload/download and shows buttons
+function onPublish(elForm, ev) {
+    ev.preventDefault();
+    drawLinesTxt(false);
+    document.body.style = ('cursor: wait;')
+    setTimeout(() => {
+        document.body.style = ('cursor: ;')
+        uploadImg(elForm, ev);
+    }, 2000);
+
+    setTimeout(() => {
+        document.querySelector('.download-button').hidden = true;
+        document.querySelector('.share-facebook').hidden = true;
+    }, 8000);
 }
 
 // Renders input field with the current line text

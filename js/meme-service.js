@@ -14,6 +14,7 @@ function getImgSrc(id) {
 
 // Sets the txt of the line to the value passed in
 function setLineTxt(val) {
+    if (gMeme.selectedLineIdx === null) return;
     gMeme.lines[gMeme.selectedLineIdx].txt = val;
 }
 
@@ -52,6 +53,7 @@ function setCurrMeme(id) {
 
 // Sets the lines width
 function setLineWidth(lineIdx) {
+    if (!gMeme.lineCount) return;
     const txtChars = gMeme.lines[lineIdx].txt.split('');
     const width = txtChars.length * gMeme.lines[lineIdx].size / 2.2;
     gMeme.lines[lineIdx].lineWidth = width;
@@ -64,17 +66,20 @@ function setSecondLineY() {
 
 // Updates the font size for the selected line
 function changeFontSize(val) {
+    if (!gMeme.lineCount) return;
     if (gMeme.lines[gMeme.selectedLineIdx].size <= 5 && val < 0) return;
     gMeme.lines[gMeme.selectedLineIdx].size += val;
 }
 
 // Updates the y axis coordinate
 function moveLine(val) {
+    if (!gMeme.lineCount) return;
     gMeme.lines[gMeme.selectedLineIdx].y += val;
 }
 
 // Updates the selected line index(currently loops through)
 function changeLine() {
+    if (!gMeme.lineCount) return;
     if (gMeme.lineCount === 1) {
         gMeme.selectedLineIdx = 0;
         return; // if theres 1 line, change to that line
@@ -85,25 +90,33 @@ function changeLine() {
 
 // Sets the fill color to selected line
 function changeFillColor(color) {
+    if (!gMeme.lineCount) return;
     gMeme.lines[gMeme.selectedLineIdx].fillColor = color;
 }
 
 // Sets the stroke color to selected line
 function changeStrokeColor(color) {
+    if (!gMeme.lineCount) return;
     gMeme.lines[gMeme.selectedLineIdx].strokeColor = color;
 }
 
 // Deletes the selected line
+// function deleteLine() {
+//     if (gMeme.lineCount === 1) {
+//         gMeme.lines[gMeme.selectedLineIdx].txt = '';
+//         return; //if user tries to delete the only line exists, delete the txt inside
+//     };
+//     gMeme.lines.splice(gMeme.selectedLineIdx, 1);
+//     gMeme.lineCount--;
+//     // if the line index isn't 0, decrement it, else assign 0
+//     if (gMeme.selectedLineIdx) gMeme.selectedLineIdx--;
+//     else gMeme.selectedLineIdx = 0;
+// }
 function deleteLine() {
-    if (gMeme.lineCount === 1) {
-        gMeme.lines[gMeme.selectedLineIdx].txt = '';
-        return; //if user tries to delete the only line exists, delete the txt inside
-    };
+    if (!gMeme.lineCount) return;
     gMeme.lines.splice(gMeme.selectedLineIdx, 1);
     gMeme.lineCount--;
-    // if the line index isn't 0, decrement it, else assign 0
-    if (gMeme.selectedLineIdx) gMeme.selectedLineIdx--;
-    else gMeme.selectedLineIdx = 0;
+    gMeme.selectedLineIdx = (gMeme.lineCount) ? 0 : null;
 }
 
 // Adds new line, focus on new line
@@ -127,6 +140,7 @@ function addLine() {
 
 // Changes the font for all lines
 function changeFont(font) {
+    if (!gMeme.lineCount) return;
     gMeme.lines.forEach(line => line.font = font);
 }
 

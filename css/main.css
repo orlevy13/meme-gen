@@ -159,8 +159,7 @@ header {
 .download-button.btn-background {
     background-image: url(../images/icons/download.png);
     background-color: #fff;
-    height: 50px;
-    width: 50px;
+    padding: 17px 25px;
     border-radius: 5px;
     background-size: 90%;
 }
