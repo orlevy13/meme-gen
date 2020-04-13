@@ -6,39 +6,16 @@ function getAvailableKeywords() {
     return gKeywordsAvailable;
 }
 
+function getImages() {
+    return gImgs;
+};
+
 // Creates an array with all available keywords
 function setAvailableKeywords() {
     gImgs.forEach(img => {
         gKeywordsAvailable.push(...img.keywords)
     })
 }
-
-// Renders the imgs to the gallery instead of typing :)
-function renderImgs() {
-    var strHTML = gImgs.map(img => {
-        if (img.isHidden) return;
-        return `<img onclick="onImageClicked(this.dataset.id)" data-id="${img.id}" src="./${img.url}"></img>`;
-    })
-    document.querySelector('.gallery-container').innerHTML = strHTML.join('');
-};
-
-// Renders the options to datalist
-function renderOptions() {
-    var addedKeywords = [];
-    var strHTML = gImgs.map(img => {
-        return img.keywords.map(word => {
-            if (addedKeywords.includes(word)) return;
-            addedKeywords.push(word);
-            return `<option value="${word}">${word}</option>`;
-        })
-    })
-    const elDatalist = document.querySelector('#keywords');
-    elDatalist.innerHTML = strHTML.join('');
-}
-
-function getImages() {
-    return gImgs;
-};
 
 // Filters the images that matches the keyword,entirely or partially
 function setImgsForDisplay(keyword) {

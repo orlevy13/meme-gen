@@ -10,7 +10,7 @@ var gCurrLineDrag;
 // Sets size of canvas and basic variables
 function onInit() {
     renderImgs();
-    renderOptions();
+    renderSearchOptions();
     renderSearchKeywords();
     gCanvas = document.querySelector('#my-canvas');
     if (window.innerWidth > 600) gCanvas.width = 600;
@@ -94,24 +94,7 @@ function onImageClicked(id) {
     showEditor();
 }
 
-// Revealing the editor and hiding the main page
-function showEditor() {
-    const elEditor = document.querySelector('.meme-editor');
-    elEditor.style = ('display: flex;');
-    const elMainPage = document.querySelector('.main-page');
-    elMainPage.style = ('display:none;');
-}
 
-// The opposite of showEditor()
-function hideEditor() {
-    const elEditor = document.querySelector('.meme-editor');
-    elEditor.style = ('display: none;');
-    const elMainPage = document.querySelector('.main-page');
-    elMainPage.style = ('display: block;')
-    // closing the menu also
-    document.querySelector('.main-nav').classList.remove('display-menu');
-    document.querySelector('.screen').hidden = true;
-}
 
 // Draws all lines on the canvas
 function drawLinesTxt() {
@@ -186,22 +169,6 @@ function onChangeStrokeColor(color) {
     drawLinesTxt();
 }
 
-// Renders input field with the current line text
-function renderInputField() {
-    const elInput = document.querySelector('input[name="lineText"]');
-    const meme = getMeme();
-    const currLine = meme.lines[meme.selectedLineIdx];
-    if (!currLine) return;
-    elInput.value = currLine.txt;
-    elInput.focus();
-}
-
-// Translates menu, toggles screen 'hidden' att
-function toggleMenu() {
-    document.querySelector('.main-nav').classList.toggle('display-menu');
-    document.querySelector('.screen').toggleAttribute('hidden');
-}
-
 // Sets selectedLine = gCurrLineDrag, Sets gIsMouseDown to true
 function onStartDrag(ev) {
     selectLine(ev.offsetX, ev.offsetY);
@@ -222,7 +189,7 @@ function onDragEnd() {
     gIsMouseDown = false;
     if (!getMeme()) return;
     renderInputField();
-    gCanvas.style = ('cursor: default;')
+    gCanvas.style = ('cursor:;')
 }
 
 // Downloads the image
@@ -231,53 +198,14 @@ function onDownload(elLink) {
     elLink.href = imgContent;
 }
 
-// Search for keyword match,display matching images, if nothing found, display all
-function onSearch(keyword) {
-    renderSearchInput(keyword);//if user clicked and not typed
-    keyword = keyword.toLowerCase().trim();
-    setImgsForDisplay(keyword);
-    const images = getImages();
-    const isNothingFound = images.every(img => img.isHidden);
-    if (isNothingFound) setAllImgsForDisplay();
-    renderImgs();
+// Renders input field with the current line text
+function renderInputField() {
+    const elInput = document.querySelector('input[name="lineText"]');
+    const meme = getMeme();
+    const currLine = meme.lines[meme.selectedLineIdx];
+    if (!currLine) return;
+    elInput.value = currLine.txt;
+    elInput.focus();
 }
 
-// Renders search terms randomly
-function renderSearchKeywords() {
-    const elList = document.querySelector('.search-terms');
-    const elHiddenList = document.querySelector('.hidden-search-terms')
-    var availabeKeywords = getAvailableKeywords();
-    var fontSize;
-    var strHTML = '';
-    var strHTMLhidden = '';
-    for (let i = 0; i < 20; i++) {
-        fontSize = getRandomInt(12, 60);
-        var idx = getRandomInt(0, availabeKeywords.length - 1)
-        if (i >= 5) {
-            // Only 5 words shown at all times
-            strHTMLhidden += `<li onclick="onSearch('${availabeKeywords[idx]}')"
-                style="font-size: ${fontSize}px">${availabeKeywords[idx]}</li>`;
-            // to avoid repetition
-            availabeKeywords.splice(idx, 1)
-        } else strHTML += `<li onclick="onSearch('${availabeKeywords[idx]}')"
-              style="font-size: ${fontSize}px">${availabeKeywords[idx]}</li>`;
-    } elList.innerHTML = strHTML;
-    elHiddenList.innerHTML = strHTMLhidden;
-}
 
-// Toggles the expanded search terms display
-function toggleKeywords(elBtn) {
-    var elHiddenList = document.querySelector('.hidden-search-terms');
-    elHiddenList.classList.toggle('hide');
-    elBtn.innerText = (elBtn.innerText === 'Show more') ? 'Show less' : 'Show more';
-}
-
-// Renders input field to keyword searched
-function renderSearchInput(keyword) {
-    const elInput = document.querySelector('.search-input');
-    elInput.value = keyword;
-    document.body.style = ('cursor: wait;');
-    setTimeout(() => {
-        document.body.style = ('cursor: unset;');
-    }, 800);
-}
