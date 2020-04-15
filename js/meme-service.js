@@ -101,17 +101,6 @@ function changeStrokeColor(color) {
 }
 
 // Deletes the selected line
-// function deleteLine() {
-//     if (gMeme.lineCount === 1) {
-//         gMeme.lines[gMeme.selectedLineIdx].txt = '';
-//         return; //if user tries to delete the only line exists, delete the txt inside
-//     };
-//     gMeme.lines.splice(gMeme.selectedLineIdx, 1);
-//     gMeme.lineCount--;
-//     // if the line index isn't 0, decrement it, else assign 0
-//     if (gMeme.selectedLineIdx) gMeme.selectedLineIdx--;
-//     else gMeme.selectedLineIdx = 0;
-// }
 function deleteLine() {
     if (!gMeme.lineCount) return;
     gMeme.lines.splice(gMeme.selectedLineIdx, 1);

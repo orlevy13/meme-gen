@@ -15,6 +15,7 @@ function onInit() {
     gCanvas = document.querySelector('#my-canvas');
     if (window.innerWidth > 600) gCanvas.width = 600;
     else gCanvas.width = 300;
+    window.addEventListener('resize', resizeCanvas);
     gCtx = gCanvas.getContext('2d');
     // Line below prevents scrolling on canvas
     gCanvas.addEventListener("touchmove", function (event) { event.preventDefault() });
@@ -35,10 +36,6 @@ function handleTouch(ev) {
     // Equivalent of mouseup
     if (ev.type === 'pointerup') return onDragEnd();
 }
-
-// This line only exists so that the resizing of the canvas will happen if screen is resized,
-// The size will also automatically adjust according to the screen size
-window.addEventListener('resize', resizeCanvas)
 
 // Sets the canvas size in accordance to screen size
 function resizeCanvas() {

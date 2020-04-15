@@ -74,7 +74,8 @@ function hideEditor() {
 
 // Renders the imgs to the gallery
 function renderImgs() {
-    var strHTML = gImgs.map(img => {
+    const imgs = getImages();
+    var strHTML = imgs.map(img => {
         if (img.isHidden) return;
         return `<img onclick="onImageClicked(this.dataset.id)" data-id="${img.id}" src="./${img.url}"></img>`;
     })
@@ -84,7 +85,8 @@ function renderImgs() {
 // Renders the options to datalist
 function renderSearchOptions() {
     var addedKeywords = [];
-    var strHTML = gImgs.map(img => {
+    const imgs = getImages();
+    var strHTML = imgs.map(img => {
         return img.keywords.map(word => {
             if (addedKeywords.includes(word)) return;
             addedKeywords.push(word);
