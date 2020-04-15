@@ -233,7 +233,7 @@ function onPublish(elForm, ev) {
 function renderInputField() {
     const elInput = document.querySelector('input[name="lineText"]');
     const meme = getMeme();
-    if (!meme.lineCount) {
+    if (!meme.lines.length) {
         elInput.value = '';
         elInput.disabled = true;
         elInput.style = ('background-color: #929292;')

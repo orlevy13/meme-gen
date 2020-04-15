@@ -46,14 +46,13 @@ function setCurrMeme(id) {
                 y: null,
                 lineWidth: null
             }
-        ],
-        lineCount: 2
+        ]
     };
 }
 
 // Sets the lines width
 function setLineWidth(lineIdx) {
-    if (!gMeme.lineCount) return;
+    if (!gMeme.lines.length) return;
     const txtChars = gMeme.lines[lineIdx].txt.split('');
     const width = txtChars.length * gMeme.lines[lineIdx].size / 2.2;
     gMeme.lines[lineIdx].lineWidth = width;
@@ -66,46 +65,45 @@ function setSecondLineY() {
 
 // Updates the font size for the selected line
 function changeFontSize(val) {
-    if (!gMeme.lineCount) return;
+    if (!gMeme.lines.length) return;
     if (gMeme.lines[gMeme.selectedLineIdx].size <= 5 && val < 0) return;
     gMeme.lines[gMeme.selectedLineIdx].size += val;
 }
 
 // Updates the y axis coordinate
 function moveLine(val) {
-    if (!gMeme.lineCount) return;
+    if (!gMeme.lines.length) return;
     gMeme.lines[gMeme.selectedLineIdx].y += val;
 }
 
 // Updates the selected line index(currently loops through)
 function changeLine() {
-    if (!gMeme.lineCount) return;
-    if (gMeme.lineCount === 1) {
+    if (!gMeme.lines.length) return;
+    if (gMeme.lines.length === 1) {
         gMeme.selectedLineIdx = 0;
         return; // if theres 1 line, change to that line
     }
-    if (gMeme.selectedLineIdx === gMeme.lineCount - 1) gMeme.selectedLineIdx = 0; // If its the last line
+    if (gMeme.selectedLineIdx === gMeme.lines.length - 1) gMeme.selectedLineIdx = 0; // If its the last line
     else gMeme.selectedLineIdx++;
 }
 
 // Sets the fill color to selected line
 function changeFillColor(color) {
-    if (!gMeme.lineCount) return;
+    if (!gMeme.lines.length) return;
     gMeme.lines[gMeme.selectedLineIdx].fillColor = color;
 }
 
 // Sets the stroke color to selected line
 function changeStrokeColor(color) {
-    if (!gMeme.lineCount) return;
+    if (!gMeme.lines.length) return;
     gMeme.lines[gMeme.selectedLineIdx].strokeColor = color;
 }
 
 // Deletes the selected line
 function deleteLine() {
-    if (!gMeme.lineCount) return;
+    if (!gMeme.lines.length) return;
     gMeme.lines.splice(gMeme.selectedLineIdx, 1);
-    gMeme.lineCount--;
-    gMeme.selectedLineIdx = (gMeme.lineCount) ? 0 : null;
+    gMeme.selectedLineIdx = (gMeme.lines.length) ? 0 : null;
 }
 
 // Adds new line, focus on new line
@@ -123,13 +121,12 @@ function addLine() {
             lineWidth: null
         }
     )
-    gMeme.lineCount++;
-    gMeme.selectedLineIdx = gMeme.lineCount - 1;// The line added gets the focus
+    gMeme.selectedLineIdx = gMeme.lines.length - 1;// The line added gets the focus
 };
 
 // Changes the font for all lines
 function changeFont(font) {
-    if (!gMeme.lineCount) return;
+    if (!gMeme.lines.length) return;
     gMeme.lines.forEach(line => line.font = font);
 }
 

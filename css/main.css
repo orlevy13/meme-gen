@@ -119,6 +119,7 @@ header {
     border: none;
     border-radius: 5px;
     padding: 10px;
+    transition: background-color 0.2s;
 }
 
 .fill-color-input {

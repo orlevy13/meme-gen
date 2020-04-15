@@ -70,6 +70,10 @@ function hideEditor() {
     // closing the menu also
     document.querySelector('.main-nav').classList.remove('display-menu');
     document.querySelector('.screen').hidden = true;
+    document.querySelector('.search-bar').scrollIntoView({
+        behavior: 'smooth'
+    });
+
 }
 
 // Renders the imgs to the gallery
