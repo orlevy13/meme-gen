@@ -15,7 +15,6 @@ function onInit() {
     gCanvas = document.querySelector('#my-canvas');
     if (window.innerWidth > 600) gCanvas.width = 600;
     else gCanvas.width = 300;
-    window.addEventListener('resize', resizeCanvas);
     gCtx = gCanvas.getContext('2d');
     // Line below prevents scrolling on canvas
     gCanvas.addEventListener("touchmove", function (event) { event.preventDefault() });
@@ -24,6 +23,7 @@ function onInit() {
     // The 'if' is here to check if 'panstart' actually detected a mouseclick
     canvasHammer.on('panstart', function () { if (!gIsMouseDown) selectLine(event.offsetX, event.offsetY) });
     canvasHammer.on('pan', function () { handleTouch(event) });
+    window.addEventListener('resize', resizeCanvas);
 };
 
 // Handles touch events
